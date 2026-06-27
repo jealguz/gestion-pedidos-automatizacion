@@ -1,0 +1,25 @@
+# Dependencias
+node_modules/
+.pnp/
+.pnp.js
+
+# Archivos de build
+dist/
+build/
+out/
+
+# Entorno local
+.env
+.env.local
+.env.*.local
+
+# Logs y herramientas
+npm-debug.log*
+yarn-debug.log*
+yarn-test.log*
+.DS_Store
+.vscode/
+.idea/
+
+# Carpetas de desarrollo
+coverage/
