@@ -1,7 +1,10 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 
 const ESTADOS = ['en preparacion', 'terminado', 'entregado']
-const API_URL = import.meta.env.DEV ? '/api' : import.meta.env.VITE_API_URL
+
+// En desarrollo (.env.local): VITE_API_URL=/api → Vite proxy lo reenvía
+// En producción (Netlify):    VITE_API_URL=https://tu-worker/?target=...
+const API_URL = import.meta.env.VITE_API_URL
 
 const BADGES = {
   'en preparacion': 'bg-amber-100 text-amber-800 border-amber-300',
@@ -98,6 +101,9 @@ function App() {
     try {
       setCargando(true)
       setError('')
+      if (!API_URL) {
+        throw new Error('VITE_API_URL no está configurada. En Netlify, ve a Site settings → Environment variables y agrega VITE_API_URL con la URL de tu proxy CORS.')
+      }
       const res = await fetch(API_URL)
       if (!res.ok) {
         const text = await res.text()
